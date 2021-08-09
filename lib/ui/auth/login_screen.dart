@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pragmatic_todo/app_router.dart';
 import 'package:pragmatic_todo/logic/auth/auth_providers.dart';
 
 class LoginScreen extends HookConsumerWidget {
@@ -34,9 +35,7 @@ class LoginScreen extends HookConsumerWidget {
                         hintText: 'Username',
                       ),
                     ),
-                    const SizedBox(
-                      height: 15,
-                    ),
+                    const SizedBox(height: 15),
                     TextFormField(
                       validator: controller.loginPasswordValidator,
                       obscureText: true,
@@ -45,13 +44,15 @@ class LoginScreen extends HookConsumerWidget {
                         hintText: 'Password',
                       ),
                     ),
-                    const SizedBox(
-                      height: 15,
-                    ),
+                    const SizedBox(height: 15),
                     ElevatedButton(
                       onPressed: controller.login,
                       child: const Text("Login"),
-                    )
+                    ),
+                    TextButton(
+                      child: const Text("No account?"),
+                      onPressed: () => AppRouter.gotoRegisterScreen(context),
+                    ),
                   ],
                 ),
               ),
