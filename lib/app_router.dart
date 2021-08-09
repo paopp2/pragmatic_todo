@@ -4,13 +4,15 @@ import 'package:pragmatic_todo/ui/auth/register_screen.dart';
 import 'package:pragmatic_todo/ui/home/home_screen.dart';
 
 class AppRouter {
-  final Map<String, Widget Function(BuildContext)> _routesList = {
+  AppRouter._();
+  static final instance = AppRouter._();
+  final Map<String, Widget Function(BuildContext)> routesList = {
     Routes.homeScreen: (context) => const HomeScreen(),
     Routes.loginScreen: (context) => const LoginScreen(),
     Routes.registerScreen: (context) => const RegisterScreen(),
   };
 
-  Map<String, Widget Function(BuildContext)> getRoutes() => _routesList;
+  Map<String, Widget Function(BuildContext)> getRoutes() => instance.routesList;
 
   static void gotoHomeScreen(BuildContext context) =>
       Navigator.pushNamed(context, Routes.homeScreen);

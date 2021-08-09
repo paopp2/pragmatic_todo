@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pragmatic_todo/app_router.dart';
+import 'package:pragmatic_todo/ui/auth/login_screen.dart';
+import 'package:pragmatic_todo/ui/auth/register_screen.dart';
 import 'package:pragmatic_todo/ui/home/home_screen.dart';
 
 void main() {
@@ -11,12 +14,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _appRouter = AppRouter.instance;
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomeScreen(),
+      routes: _appRouter.getRoutes(),
+      home: const LoginScreen(),
     );
   }
 }
