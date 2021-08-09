@@ -22,6 +22,8 @@ class AppRouter {
 
   static void gotoRegisterScreen(BuildContext context) =>
       Navigator.pushNamed(context, Routes.registerScreen);
+
+  static void popScreen(BuildContext context) => Navigator.pop(context);
 }
 
 class Routes {
