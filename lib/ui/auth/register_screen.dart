@@ -16,7 +16,7 @@ class RegisterScreen extends HookConsumerWidget {
       return controller.dispose;
     }, []);
 
-    void _onRegisterButtonPressed() {
+    void _onNoAccountButtonPressed() {
       controller.attemptRegisterThenLogin().then(
         (successfulAttempt) {
           if (successfulAttempt) AppRouter.popScreen(context);
@@ -65,7 +65,7 @@ class RegisterScreen extends HookConsumerWidget {
                     ),
                     const SizedBox(height: 15),
                     ElevatedButton(
-                      onPressed: _onRegisterButtonPressed,
+                      onPressed: _onNoAccountButtonPressed,
                       child: const Text("Register"),
                     ),
                   ],
