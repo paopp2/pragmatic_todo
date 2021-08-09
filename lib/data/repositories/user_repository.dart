@@ -7,6 +7,17 @@ class UserRepository {
   UserRepository(this.sharedPrefServices);
   final SharedPreferencesService sharedPrefServices;
 
+  Future<User> getUser(String username) async {
+    final List<User> userList = await getUserList();
+    User? userOfInterest;
+    for (final user in userList) {
+      if ((user is Data) && (user.username == username)) {
+        userOfInterest = user;
+      }
+    }
+    return userOfInterest ?? const User.error("This username doesn't exist");
+  }
+
   Future<bool> addUserToUserList(User user) async {
     final userList = await getUserList();
     userList.add(user);
