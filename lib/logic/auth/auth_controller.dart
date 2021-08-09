@@ -21,11 +21,13 @@ class AuthController {
     tecConfirmPass.dispose();
   }
 
-  void login() async {
+  void attemptLogin() async {
     read(someUserProvider).state =
         await read(userRepositoryProvider).getUser(tecUsername.text);
+    final someUser = read(someUserProvider).state;
     if (loginFormKey.currentState!.validate()) {
-      print(read(someUserProvider).state);
+      read(currentUserProvider).state =
+          someUser ?? const User.error("Error logging in");
     }
   }
 
@@ -55,16 +57,20 @@ class AuthController {
     }
   }
 
-  void register() async {
+  Future<bool> attemptRegisterThenLogin() async {
+    bool isSuccess = false;
+    read(someUserProvider).state =
+        await read(userRepositoryProvider).getUser(tecUsername.text);
     if (registerFormKey.currentState!.validate()) {
-      bool success = await read(userRepositoryProvider).addUserToUserList(
-        User(
-          username: tecUsername.text,
-          password: tecPassword.text,
-        ),
+      final newUser = User(
+        username: tecUsername.text,
+        password: tecPassword.text,
       );
-      print("Register successful: $success");
+      isSuccess = await read(userRepositoryProvider).addUserToUserList(newUser);
+      read(currentUserProvider).state =
+          (isSuccess) ? newUser : const User.error("Register unsuccessful");
     }
+    return isSuccess;
   }
 
   String? registerUsernameValidator(String? value) {
@@ -73,7 +79,7 @@ class AuthController {
     } else {
       final User? userCheck = read(someUserProvider).state;
       final usernameValidation = userCheck?.whenOrNull(
-        (username, _) => "This username is taken",
+        (username, _) => "The username '$username' is taken",
       );
       return usernameValidation;
     }

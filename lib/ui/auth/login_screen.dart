@@ -46,7 +46,7 @@ class LoginScreen extends HookConsumerWidget {
                     ),
                     const SizedBox(height: 15),
                     ElevatedButton(
-                      onPressed: controller.login,
+                      onPressed: controller.attemptLogin,
                       child: const Text("Login"),
                     ),
                     TextButton(

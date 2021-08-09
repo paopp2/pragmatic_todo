@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pragmatic_todo/app_router.dart';
 import 'package:pragmatic_todo/logic/auth/auth_providers.dart';
 
 class RegisterScreen extends HookConsumerWidget {
@@ -14,6 +15,14 @@ class RegisterScreen extends HookConsumerWidget {
       controller.initState();
       return controller.dispose;
     }, []);
+
+    void _onRegisterButtonPressed() {
+      controller.attemptRegisterThenLogin().then(
+        (successfulAttempt) {
+          if (successfulAttempt) AppRouter.popScreen(context);
+        },
+      );
+    }
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -56,9 +65,9 @@ class RegisterScreen extends HookConsumerWidget {
                     ),
                     const SizedBox(height: 15),
                     ElevatedButton(
-                      onPressed: controller.register,
+                      onPressed: _onRegisterButtonPressed,
                       child: const Text("Register"),
-                    )
+                    ),
                   ],
                 ),
               ),
