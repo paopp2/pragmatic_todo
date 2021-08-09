@@ -21,7 +21,7 @@ class AuthController {
     tecConfirmPass.dispose();
   }
 
-  void attemptLogin() async {
+  Future<void> attemptLogin() async {
     read(someUserProvider).state =
         await read(userRepositoryProvider).getUser(tecUsername.text);
     final someUser = read(someUserProvider).state;
