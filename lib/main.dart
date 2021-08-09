@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pragmatic_todo/app_router.dart';
+import 'package:pragmatic_todo/root_screen_builder.dart';
 import 'package:pragmatic_todo/ui/auth/login_screen.dart';
-import 'package:pragmatic_todo/ui/auth/register_screen.dart';
 import 'package:pragmatic_todo/ui/home/home_screen.dart';
 
 void main() {
@@ -21,7 +21,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: _appRouter.getRoutes(),
-      home: const LoginScreen(),
+      home: RootScreenBuilder(
+        loggedInBuilder: (_) => const HomeScreen(),
+        loggedOutBuilder: (_) => const LoginScreen(),
+      ),
     );
   }
 }
