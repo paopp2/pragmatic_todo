@@ -9,19 +9,24 @@ class AuthController {
   final Reader read;
   final loginFormKey = GlobalKey<FormState>();
   final registerFormKey = GlobalKey<FormState>();
-  var tecUsername = TextEditingController();
-  var tecPassword = TextEditingController();
+  final tecUsername = TextEditingController();
+  final tecPassword = TextEditingController();
+  final tecConfirmPass = TextEditingController();
 
   void initState() {}
+
   void dispose() {
     tecUsername.dispose();
     tecPassword.dispose();
+    tecConfirmPass.dispose();
   }
 
   void login() async {
     read(someUserProvider).state =
         await read(userRepositoryProvider).getUser(tecUsername.text);
-    if (loginFormKey.currentState!.validate()) {}
+    if (loginFormKey.currentState!.validate()) {
+      print(read(someUserProvider).state);
+    }
   }
 
   String? loginUsernameValidator(String? value) {
@@ -43,15 +48,43 @@ class AuthController {
     } else {
       final User? userCheck = read(someUserProvider).state;
       final passwordValidation = userCheck?.whenOrNull(
-        (username, password) =>
-            (password != value) ? "Incorrect password" : null,
+        (_, password) => (password != value) ? "Incorrect password" : null,
         error: (String? errorMsg) => "",
       );
       return passwordValidation;
     }
   }
 
-  // String? registerUsernameValidator(String? value) {
-  //   final User? userCheck = read(someUserProvider).state;
-  // }
+  void register() async {
+    if (registerFormKey.currentState!.validate()) {
+      bool success = await read(userRepositoryProvider).addUserToUserList(
+        User(
+          username: tecUsername.text,
+          password: tecPassword.text,
+        ),
+      );
+      print("Register successful: $success");
+    }
+  }
+
+  String? registerUsernameValidator(String? value) {
+    if (value == '') {
+      return "This field can't be empty";
+    } else {
+      final User? userCheck = read(someUserProvider).state;
+      final usernameValidation = userCheck?.whenOrNull(
+        (username, _) => "This username is taken",
+      );
+      return usernameValidation;
+    }
+  }
+
+  String? registerPasswordValidator(String? value) {
+    if (value == '') {
+      return "This field can't be empty";
+    } else {
+      final passwordsEqual = (tecPassword.text == tecConfirmPass.text);
+      return (!passwordsEqual) ? "Passwords do not match" : null;
+    }
+  }
 }
