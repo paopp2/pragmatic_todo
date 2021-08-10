@@ -5,7 +5,7 @@ import 'package:pragmatic_todo/root_screen_builder.dart';
 import 'package:pragmatic_todo/ui/auth/login_view.dart';
 import 'package:pragmatic_todo/ui/home/home_view.dart';
 
-void main() async {
+void main() {
   runApp(const ProviderScope(child: MyApp()));
 }
 
