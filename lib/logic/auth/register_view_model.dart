@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pragmatic_todo/app_router.dart';
 import 'package:pragmatic_todo/data/data_providers.dart';
 import 'package:pragmatic_todo/data/repositories/user_repository.dart';
+import 'package:pragmatic_todo/data/services/auth_service.dart';
 import 'package:pragmatic_todo/model/user/user.dart';
 
 class RegisterViewModel {
@@ -14,10 +15,12 @@ class RegisterViewModel {
   final tecConfirmPass = TextEditingController();
   late UserRepository _userRepository;
   late User _userQuery;
+  late AuthService _authService;
 
   void initState() {
     _userQuery = const User.error("Not yet used");
     _userRepository = read(userRepositoryProvider);
+    _authService = read(authServiceProvider);
   }
 
   Future<void> attemptRegisterThenLogin() async {
@@ -30,10 +33,10 @@ class RegisterViewModel {
       bool isSuccess = false;
       isSuccess = await _userRepository.addUserToUserList(newUser);
       if (isSuccess) {
-        read(authStateProvider.notifier).logInAs(newUser);
+        _authService.loginAs(newUser);
         AppRouter.instance.popScreen();
       } else {
-        read(authStateProvider.notifier).error("Register unsuccessful");
+        _authService.error("Register unsuccessful");
       }
     }
   }

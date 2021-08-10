@@ -7,5 +7,8 @@ import 'package:pragmatic_todo/model/user/user.dart';
 final userRepositoryProvider = Provider.autoDispose<UserRepository>(
     (ref) => UserRepository(SharedPreferencesHelper.instance));
 
-final authStateProvider = StateNotifierProvider.autoDispose<AuthService, User>(
-    (ref) => AuthService());
+final authServiceProvider =
+    Provider.autoDispose<AuthService>((ref) => AuthService(ref.read));
+
+final currentUserProvider =
+    StateProvider.autoDispose<User>((ref) => const User.loggedOut());

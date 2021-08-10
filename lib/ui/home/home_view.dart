@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pragmatic_todo/logic/home/home_view_model.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 class HomeView extends HookConsumerWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -8,6 +9,12 @@ class HomeView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final model = HomeViewModel(ref.read);
+
+    useEffect(() {
+      model.initState();
+      return model.dispose;
+    }, []);
+
     return LayoutBuilder(
       builder: (context, constraints) {
         return Scaffold(

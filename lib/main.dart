@@ -1,12 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pragmatic_todo/app_router.dart';
-import 'package:pragmatic_todo/root_screen_builder.dart';
+import 'package:pragmatic_todo/data/data_providers.dart';
+import 'package:pragmatic_todo/data/db_helpers/shared_preferences_helper.dart';
+import 'package:pragmatic_todo/data/repositories/user_repository.dart';
+import 'package:pragmatic_todo/data/services/auth_service.dart';
+import 'package:pragmatic_todo/model/user/user.dart';
+import 'package:pragmatic_todo/root_view_builder.dart';
 import 'package:pragmatic_todo/ui/auth/login_view.dart';
 import 'package:pragmatic_todo/ui/home/home_view.dart';
 
-void main() {
-  runApp(const ProviderScope(child: MyApp()));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  String? currentUsername = await AuthService.getCurrentUser();
+  final sharedPrefsHelper = SharedPreferencesHelper.instance;
+  final userRepository = UserRepository(sharedPrefsHelper);
+  User currentUser = (currentUsername != null)
+      ? await userRepository.getUser(currentUsername)
+      : const User.loggedOut();
+  runApp(
+    ProviderScope(
+      overrides: [
+        currentUserProvider.overrideWithProvider(
+            StateProvider.autoDispose((ref) => currentUser))
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
