@@ -8,10 +8,17 @@ class TodoViewModel {
 
   void initState() {}
 
-  void saveTodo() {}
-
   String? todoTitleValidator(String? value) {}
-  String? todoContentValidator(String? value) {}
+
+  String? todoContentValidator(String? value) {
+    if (value == '') {
+      return "Can't save an empty Todo";
+    }
+  }
+
+  void saveTodo() {
+    if (todoFormKey.currentState!.validate()) {}
+  }
 
   void dispose() {}
 }
