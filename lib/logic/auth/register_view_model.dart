@@ -4,8 +4,6 @@ import 'package:pragmatic_todo/app_router.dart';
 import 'package:pragmatic_todo/data/data_providers.dart';
 import 'package:pragmatic_todo/model/user/user.dart';
 
-import 'auth_providers.dart';
-
 class RegisterViewModel {
   RegisterViewModel(this.read);
   final Reader read;
@@ -13,12 +11,12 @@ class RegisterViewModel {
   final tecUsername = TextEditingController();
   final tecPassword = TextEditingController();
   final tecConfirmPass = TextEditingController();
+  late User _userQuery;
 
   void initState() {}
 
   Future<void> attemptRegisterThenLogin() async {
-    read(tempUserProvider).state =
-        await read(userRepositoryProvider).getUser(tecUsername.text);
+    _userQuery = await read(userRepositoryProvider).getUser(tecUsername.text);
     if (registerFormKey.currentState!.validate()) {
       final newUser = User(
         username: tecUsername.text,
@@ -39,7 +37,7 @@ class RegisterViewModel {
     if (value == '') {
       return "This field can't be empty";
     } else {
-      final User? userCheck = read(tempUserProvider).state;
+      final User? userCheck = _userQuery;
       final usernameValidation = userCheck?.whenOrNull(
         (username, _) => "The username '$username' is taken",
       );
