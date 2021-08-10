@@ -2,35 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:pragmatic_todo/ui/auth/login_view.dart';
 import 'package:pragmatic_todo/ui/auth/register_view.dart';
 import 'package:pragmatic_todo/ui/home/home_view.dart';
+import 'package:pragmatic_todo/ui/todo/todo_view.dart';
 
 class AppRouter {
   AppRouter._();
   static final instance = AppRouter._();
   final GlobalKey<NavigatorState> navigationKey = GlobalKey<NavigatorState>();
   final Map<String, Widget Function(BuildContext)> routesList = {
-    Routes.homeScreen: (context) => const HomeView(),
-    Routes.loginScreen: (context) => const LoginView(),
-    Routes.registerScreen: (context) => const RegisterView(),
+    Routes.homeView: (context) => const HomeView(),
+    Routes.loginView: (context) => const LoginView(),
+    Routes.registerView: (context) => const RegisterView(),
+    Routes.todoView: (context) => const TodoView(),
   };
 
   Map<String, Widget Function(BuildContext)> getRoutes() => instance.routesList;
 
-  Future<dynamic>? navigateToRegisterScreen() =>
-      navigationKey.currentState?.pushNamed(Routes.registerScreen);
+  Future<dynamic>? navigateToRegisterView() =>
+      navigationKey.currentState?.pushNamed(Routes.registerView);
 
-  Future<dynamic>? navigateToLoginScreen() =>
-      navigationKey.currentState?.pushNamed(Routes.loginScreen);
+  Future<dynamic>? navigateToLoginView() =>
+      navigationKey.currentState?.pushNamed(Routes.loginView);
 
-  Future<dynamic>? navigateToHomeScreen() =>
-      navigationKey.currentState?.pushNamed(Routes.homeScreen);
+  Future<dynamic>? navigateToHomeView() =>
+      navigationKey.currentState?.pushNamed(Routes.homeView);
 
-  void popScreen() {
+  Future<dynamic>? navigateToTodoView() =>
+      navigationKey.currentState?.pushNamed(Routes.todoView);
+
+  void popView() {
     return navigationKey.currentState?.pop();
   }
 }
 
 class Routes {
-  static const homeScreen = '/home_screen';
-  static const loginScreen = '/login_screen';
-  static const registerScreen = '/register_screen';
+  static const homeView = '/home_view';
+  static const loginView = '/login_view';
+  static const registerView = '/register_view';
+  static const todoView = '/todo_view';
 }

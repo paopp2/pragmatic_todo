@@ -26,6 +26,12 @@ class HomeView extends HookConsumerWidget {
               )
             ],
           ),
+          floatingActionButton: FloatingActionButton(
+            child: const Icon(Icons.add),
+            onPressed: () {
+              // TODO: HomeView onFabPressed
+            },
+          ),
           body: SafeArea(
             child: Column(
               children: [

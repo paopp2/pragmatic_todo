@@ -34,7 +34,7 @@ class RegisterViewModel {
       isSuccess = await _userRepository.addUserToUserList(newUser);
       if (isSuccess) {
         _authService.loginAs(newUser);
-        AppRouter.instance.popScreen();
+        AppRouter.instance.popView();
       } else {
         _authService.error("Register unsuccessful");
       }

@@ -21,7 +21,7 @@ class LoginViewModel {
     _authService = read(authServiceProvider);
   }
 
-  void gotoRegisterScreen() => AppRouter.instance.navigateToRegisterScreen();
+  void gotoRegisterScreen() => AppRouter.instance.navigateToRegisterView();
 
   Future<void> attemptLogin() async {
     _userQuery = await _userRepository.getUser(tecUsername.text);
