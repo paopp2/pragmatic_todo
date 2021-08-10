@@ -16,9 +16,9 @@ class LoginViewModel {
   void gotoRegisterScreen() => AppRouter.instance.navigateToRegisterScreen();
 
   Future<void> attemptLogin() async {
-    read(someUserProvider).state =
+    read(tempUserProvider).state =
         await read(userRepositoryProvider).getUser(tecUsername.text);
-    final someUser = read(someUserProvider).state;
+    final someUser = read(tempUserProvider).state;
     if (loginFormKey.currentState!.validate()) {
       read(currentUserProvider).state =
           someUser ?? const User.error("Error logging in");
@@ -29,7 +29,7 @@ class LoginViewModel {
     if (value == '') {
       return "This field can't be empty";
     } else {
-      final User? userCheck = read(someUserProvider).state;
+      final User? userCheck = read(tempUserProvider).state;
       final usernameValidation = userCheck?.whenOrNull(
         null,
         error: (String? errorMsg) => errorMsg,
@@ -42,7 +42,7 @@ class LoginViewModel {
     if (value == '') {
       return "This field can't be empty";
     } else {
-      final User? userCheck = read(someUserProvider).state;
+      final User? userCheck = read(tempUserProvider).state;
       final passwordValidation = userCheck?.whenOrNull(
         (_, password) => (password != value) ? "Incorrect password" : null,
         error: (String? errorMsg) => "",

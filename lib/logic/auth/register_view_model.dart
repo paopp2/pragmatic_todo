@@ -17,7 +17,7 @@ class RegisterViewModel {
   void initState() {}
 
   Future<void> attemptRegisterThenLogin() async {
-    read(someUserProvider).state =
+    read(tempUserProvider).state =
         await read(userRepositoryProvider).getUser(tecUsername.text);
     if (registerFormKey.currentState!.validate()) {
       final newUser = User(
@@ -40,7 +40,7 @@ class RegisterViewModel {
     if (value == '') {
       return "This field can't be empty";
     } else {
-      final User? userCheck = read(someUserProvider).state;
+      final User? userCheck = read(tempUserProvider).state;
       final usernameValidation = userCheck?.whenOrNull(
         (username, _) => "The username '$username' is taken",
       );
