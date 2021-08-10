@@ -26,4 +26,9 @@ class SharedPreferencesHelper {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.setString(key, data);
   }
+
+  Future<bool> delete(String key) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.remove(key);
+  }
 }
