@@ -28,7 +28,11 @@ class UserRepository {
     final jsonList = await sharedPrefServices.getJsonList(keyUserList);
     final List<User> userList = [];
     for (final json in jsonList) {
-      userList.add(User.fromJson(json));
+      try {
+        userList.add(User.fromJson(json));
+      } catch (e) {
+        userList.add(User.error(e.toString()));
+      }
     }
     return userList;
   }
