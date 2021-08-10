@@ -17,7 +17,6 @@ class RegisterViewModel {
   void initState() {}
 
   Future<void> attemptRegisterThenLogin() async {
-    bool isSuccess = false;
     read(someUserProvider).state =
         await read(userRepositoryProvider).getUser(tecUsername.text);
     if (registerFormKey.currentState!.validate()) {
@@ -25,6 +24,7 @@ class RegisterViewModel {
         username: tecUsername.text,
         password: tecPassword.text,
       );
+      bool isSuccess = false;
       isSuccess = await read(userRepositoryProvider).addUserToUserList(newUser);
       if (isSuccess) {
         read(currentUserProvider).state = newUser;
