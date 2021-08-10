@@ -16,4 +16,15 @@ class SharedPreferencesService {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.setString(key, jsonEncode(json));
   }
+
+  Future<Map<String, dynamic>> getJson(String key) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final rawJson = prefs.getString(key);
+    return (rawJson != null) ? jsonDecode(rawJson) : {};
+  }
+
+  Future<bool> saveJson(String key, Map<String, dynamic> json) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.setString(key, jsonEncode(json));
+  }
 }

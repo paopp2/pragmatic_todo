@@ -21,4 +21,16 @@ class FakeSharedPreferencesService implements SharedPreferencesService {
     await Future.delayed(const Duration(microseconds: 5));
     return true;
   }
+
+  @override
+  Future<Map<String, dynamic>> getJson(String key) {
+    // TODO: implement getJson
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> saveJson(String key, Map<String, dynamic> json) {
+    // TODO: implement saveJson
+    throw UnimplementedError();
+  }
 }
