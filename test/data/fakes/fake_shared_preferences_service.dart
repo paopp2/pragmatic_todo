@@ -23,14 +23,14 @@ class FakeSharedPreferencesService implements SharedPreferencesService {
   }
 
   @override
-  Future<Map<String, dynamic>> getJson(String key) {
-    // TODO: implement getJson
+  Future<String?> getRawString(String key) {
+    // TODO: implement getRawString
     throw UnimplementedError();
   }
 
   @override
-  Future<bool> saveJson(String key, Map<String, dynamic> json) {
-    // TODO: implement saveJson
+  Future<bool> saveRawString(String key, String data) {
+    // TODO: implement saveRawString
     throw UnimplementedError();
   }
 }
