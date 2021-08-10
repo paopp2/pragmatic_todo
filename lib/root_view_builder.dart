@@ -14,8 +14,8 @@ class RootViewBuilder extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authState = ref.watch(authStateProvider);
-    return authState.map(
+    final currentUser = ref.watch(currentUserProvider).state;
+    return currentUser.map(
       (loggedIn) => loggedInBuilder(context),
       loggedOut: (_) => loggedOutBuilder(context),
       error: (error) => Scaffold(
