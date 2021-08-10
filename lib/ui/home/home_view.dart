@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pragmatic_todo/logic/home/home_providers.dart';
+import 'package:pragmatic_todo/logic/home/home_view_model.dart';
 
-class HomeScreen extends HookConsumerWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomeView extends HookConsumerWidget {
+  const HomeView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.read(homeControllerProvider);
+    final model = HomeViewModel(ref.read);
     return LayoutBuilder(
       builder: (context, constraints) {
         return Scaffold(
           appBar: AppBar(
             actions: [
               IconButton(
-                onPressed: controller.logOut,
+                onPressed: model.logOut,
                 icon: const Icon(Icons.logout_outlined),
               )
             ],

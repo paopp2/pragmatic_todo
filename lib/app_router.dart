@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:pragmatic_todo/ui/auth/login_screen.dart';
-import 'package:pragmatic_todo/ui/auth/register_screen.dart';
-import 'package:pragmatic_todo/ui/home/home_screen.dart';
+import 'package:pragmatic_todo/ui/auth/login_view.dart';
+import 'package:pragmatic_todo/ui/auth/register_view.dart';
+import 'package:pragmatic_todo/ui/home/home_view.dart';
 
 class AppRouter {
   AppRouter._();
   static final instance = AppRouter._();
   final GlobalKey<NavigatorState> navigationKey = GlobalKey<NavigatorState>();
   final Map<String, Widget Function(BuildContext)> routesList = {
-    Routes.homeScreen: (context) => const HomeScreen(),
-    Routes.loginScreen: (context) => const LoginScreen(),
-    Routes.registerScreen: (context) => const RegisterScreen(),
+    Routes.homeScreen: (context) => const HomeView(),
+    Routes.loginScreen: (context) => const LoginView(),
+    Routes.registerScreen: (context) => const RegisterView(),
   };
 
   Map<String, Widget Function(BuildContext)> getRoutes() => instance.routesList;
