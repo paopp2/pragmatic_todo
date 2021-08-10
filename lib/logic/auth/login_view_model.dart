@@ -51,8 +51,8 @@ class LoginViewModel {
       return "This field can't be empty";
     } else {
       final User? userCheck = _userQuery;
-      final passwordValidation = userCheck?.whenOrNull(
-        (_, password) => (password != value) ? "Incorrect password" : null,
+      final passwordValidation = userCheck?.mapOrNull(
+        (user) => (user.password != value) ? "Incorrect password" : null,
       );
       return passwordValidation;
     }

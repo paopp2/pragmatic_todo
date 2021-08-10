@@ -32,10 +32,14 @@ User _$UserFromJson(Map<String, dynamic> json) {
 class _$UserTearOff {
   const _$UserTearOff();
 
-  Data call({required String username, required String password}) {
+  Data call(
+      {required String username,
+      required String password,
+      List<Todo> todos = const []}) {
     return Data(
       username: username,
       password: password,
+      todos: todos,
     );
   }
 
@@ -61,21 +65,24 @@ const $User = _$UserTearOff();
 mixin _$User {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(String username, String password) $default, {
+    TResult Function(String username, String password, List<Todo> todos)
+        $default, {
     required TResult Function() loggedOut,
     required TResult Function(String? errorMsg) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult Function(String username, String password)? $default, {
+    TResult Function(String username, String password, List<Todo> todos)?
+        $default, {
     TResult Function()? loggedOut,
     TResult Function(String? errorMsg)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String username, String password)? $default, {
+    TResult Function(String username, String password, List<Todo> todos)?
+        $default, {
     TResult Function()? loggedOut,
     TResult Function(String? errorMsg)? error,
     required TResult orElse(),
@@ -125,7 +132,7 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
 abstract class $DataCopyWith<$Res> {
   factory $DataCopyWith(Data value, $Res Function(Data) then) =
       _$DataCopyWithImpl<$Res>;
-  $Res call({String username, String password});
+  $Res call({String username, String password, List<Todo> todos});
 }
 
 /// @nodoc
@@ -141,6 +148,7 @@ class _$DataCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
   $Res call({
     Object? username = freezed,
     Object? password = freezed,
+    Object? todos = freezed,
   }) {
     return _then(Data(
       username: username == freezed
@@ -151,6 +159,10 @@ class _$DataCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
+      todos: todos == freezed
+          ? _value.todos
+          : todos // ignore: cast_nullable_to_non_nullable
+              as List<Todo>,
     ));
   }
 }
@@ -158,7 +170,8 @@ class _$DataCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$Data with DiagnosticableTreeMixin implements Data {
-  const _$Data({required this.username, required this.password});
+  const _$Data(
+      {required this.username, required this.password, this.todos = const []});
 
   factory _$Data.fromJson(Map<String, dynamic> json) => _$$DataFromJson(json);
 
@@ -166,10 +179,13 @@ class _$Data with DiagnosticableTreeMixin implements Data {
   final String username;
   @override
   final String password;
+  @JsonKey(defaultValue: const [])
+  @override
+  final List<Todo> todos;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'User(username: $username, password: $password)';
+    return 'User(username: $username, password: $password, todos: $todos)';
   }
 
   @override
@@ -178,7 +194,8 @@ class _$Data with DiagnosticableTreeMixin implements Data {
     properties
       ..add(DiagnosticsProperty('type', 'User'))
       ..add(DiagnosticsProperty('username', username))
-      ..add(DiagnosticsProperty('password', password));
+      ..add(DiagnosticsProperty('password', password))
+      ..add(DiagnosticsProperty('todos', todos));
   }
 
   @override
@@ -190,14 +207,17 @@ class _$Data with DiagnosticableTreeMixin implements Data {
                     .equals(other.username, username)) &&
             (identical(other.password, password) ||
                 const DeepCollectionEquality()
-                    .equals(other.password, password)));
+                    .equals(other.password, password)) &&
+            (identical(other.todos, todos) ||
+                const DeepCollectionEquality().equals(other.todos, todos)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(username) ^
-      const DeepCollectionEquality().hash(password);
+      const DeepCollectionEquality().hash(password) ^
+      const DeepCollectionEquality().hash(todos);
 
   @JsonKey(ignore: true)
   @override
@@ -207,33 +227,36 @@ class _$Data with DiagnosticableTreeMixin implements Data {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(String username, String password) $default, {
+    TResult Function(String username, String password, List<Todo> todos)
+        $default, {
     required TResult Function() loggedOut,
     required TResult Function(String? errorMsg) error,
   }) {
-    return $default(username, password);
+    return $default(username, password, todos);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult Function(String username, String password)? $default, {
+    TResult Function(String username, String password, List<Todo> todos)?
+        $default, {
     TResult Function()? loggedOut,
     TResult Function(String? errorMsg)? error,
   }) {
-    return $default?.call(username, password);
+    return $default?.call(username, password, todos);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String username, String password)? $default, {
+    TResult Function(String username, String password, List<Todo> todos)?
+        $default, {
     TResult Function()? loggedOut,
     TResult Function(String? errorMsg)? error,
     required TResult orElse(),
   }) {
     if ($default != null) {
-      return $default(username, password);
+      return $default(username, password, todos);
     }
     return orElse();
   }
@@ -279,13 +302,16 @@ class _$Data with DiagnosticableTreeMixin implements Data {
 }
 
 abstract class Data implements User {
-  const factory Data({required String username, required String password}) =
-      _$Data;
+  const factory Data(
+      {required String username,
+      required String password,
+      List<Todo> todos}) = _$Data;
 
   factory Data.fromJson(Map<String, dynamic> json) = _$Data.fromJson;
 
   String get username => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
+  List<Todo> get todos => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $DataCopyWith<Data> get copyWith => throw _privateConstructorUsedError;
 }
@@ -336,7 +362,8 @@ class _$LoggedOut with DiagnosticableTreeMixin implements LoggedOut {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(String username, String password) $default, {
+    TResult Function(String username, String password, List<Todo> todos)
+        $default, {
     required TResult Function() loggedOut,
     required TResult Function(String? errorMsg) error,
   }) {
@@ -346,7 +373,8 @@ class _$LoggedOut with DiagnosticableTreeMixin implements LoggedOut {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult Function(String username, String password)? $default, {
+    TResult Function(String username, String password, List<Todo> todos)?
+        $default, {
     TResult Function()? loggedOut,
     TResult Function(String? errorMsg)? error,
   }) {
@@ -356,7 +384,8 @@ class _$LoggedOut with DiagnosticableTreeMixin implements LoggedOut {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String username, String password)? $default, {
+    TResult Function(String username, String password, List<Todo> todos)?
+        $default, {
     TResult Function()? loggedOut,
     TResult Function(String? errorMsg)? error,
     required TResult orElse(),
@@ -486,7 +515,8 @@ class _$Error with DiagnosticableTreeMixin implements Error {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(String username, String password) $default, {
+    TResult Function(String username, String password, List<Todo> todos)
+        $default, {
     required TResult Function() loggedOut,
     required TResult Function(String? errorMsg) error,
   }) {
@@ -496,7 +526,8 @@ class _$Error with DiagnosticableTreeMixin implements Error {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult Function(String username, String password)? $default, {
+    TResult Function(String username, String password, List<Todo> todos)?
+        $default, {
     TResult Function()? loggedOut,
     TResult Function(String? errorMsg)? error,
   }) {
@@ -506,7 +537,8 @@ class _$Error with DiagnosticableTreeMixin implements Error {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String username, String password)? $default, {
+    TResult Function(String username, String password, List<Todo> todos)?
+        $default, {
     TResult Function()? loggedOut,
     TResult Function(String? errorMsg)? error,
     required TResult orElse(),

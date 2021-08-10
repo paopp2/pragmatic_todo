@@ -9,11 +9,16 @@ part of 'user.dart';
 _$Data _$$DataFromJson(Map<String, dynamic> json) => _$Data(
       username: json['username'] as String,
       password: json['password'] as String,
+      todos: (json['todos'] as List<dynamic>?)
+              ?.map((e) => Todo.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
     );
 
 Map<String, dynamic> _$$DataToJson(_$Data instance) => <String, dynamic>{
       'username': instance.username,
       'password': instance.password,
+      'todos': instance.todos,
     };
 
 _$LoggedOut _$$LoggedOutFromJson(Map<String, dynamic> json) => _$LoggedOut();
