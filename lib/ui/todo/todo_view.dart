@@ -20,30 +20,33 @@ class TodoView extends HookConsumerWidget {
         return Scaffold(
           floatingActionButton: FloatingActionButton(
             child: const Icon(Icons.check),
-            onPressed: () {
-              //TODO: Implement TodoView onFabPressed
-            },
+            onPressed: model.saveTodo,
           ),
           body: Padding(
             padding: const EdgeInsets.all(15.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Title',
+            child: Form(
+              key: model.todoFormKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextFormField(
+                    validator: model.todoTitleValidator,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Title',
+                    ),
                   ),
-                ),
-                SizedBox(height: 15),
-                TextField(
-                  maxLines: 10,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Content',
+                  const SizedBox(height: 15),
+                  TextFormField(
+                    validator: model.todoContentValidator,
+                    maxLines: 10,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Content',
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );
