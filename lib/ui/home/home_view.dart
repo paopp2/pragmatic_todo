@@ -35,6 +35,11 @@ class HomeView extends HookConsumerWidget {
                     itemBuilder: (context, index) {
                       return ListTile(
                         title: Text("ListTile $index"),
+                        subtitle: const Text("A tiny subtitle"),
+                        leading: Checkbox(
+                          value: index % 2 == 0,
+                          onChanged: (_) {},
+                        ),
                       );
                     },
                   ),
