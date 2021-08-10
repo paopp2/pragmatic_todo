@@ -33,4 +33,10 @@ class FakeSharedPreferencesService implements SharedPreferencesHelper {
     // TODO: implement saveRawString
     throw UnimplementedError();
   }
+
+  @override
+  Future<bool> delete(String key) {
+    // TODO: implement delete
+    throw UnimplementedError();
+  }
 }
