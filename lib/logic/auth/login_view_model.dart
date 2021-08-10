@@ -37,12 +37,8 @@ class LoginViewModel {
     if (value == '') {
       return "This field can't be empty";
     } else {
-      final User? userCheck = _userQuery;
-      final usernameValidation = userCheck?.whenOrNull(
-        null,
-        error: (errorMsg) => errorMsg,
-      );
-      return usernameValidation;
+      final User? tmpUser = _userQuery;
+      return (tmpUser is Error) ? tmpUser.errorMsg : null;
     }
   }
 
@@ -50,11 +46,10 @@ class LoginViewModel {
     if (value == '') {
       return "This field can't be empty";
     } else {
-      final User? userCheck = _userQuery;
-      final passwordValidation = userCheck?.mapOrNull(
-        (user) => (user.password != value) ? "Incorrect password" : null,
-      );
-      return passwordValidation;
+      final User? tmpUser = _userQuery;
+      if (tmpUser is Data) {
+        if (tmpUser.password != value) return "Incorrect password";
+      }
     }
   }
 

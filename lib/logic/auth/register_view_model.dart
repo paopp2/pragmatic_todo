@@ -45,11 +45,10 @@ class RegisterViewModel {
     if (value == '') {
       return "This field can't be empty";
     } else {
-      final User? userCheck = _userQuery;
-      final usernameValidation = userCheck?.mapOrNull(
-        (user) => "The username '${user.username}' is taken",
-      );
-      return usernameValidation;
+      final User? tmpUser = _userQuery;
+      return (tmpUser is Data)
+          ? "The username '${tmpUser.username}' is taken"
+          : null;
     }
   }
 
