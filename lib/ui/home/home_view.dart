@@ -33,20 +33,24 @@ class HomeView extends HookConsumerWidget {
           body: SafeArea(
             child: Column(
               children: [
-                const Text("TODO LIST"),
                 Expanded(
-                  child: ListView.builder(
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text("ListTile $index"),
-                        subtitle: const Text("A tiny subtitle"),
-                        leading: Checkbox(
-                          value: index % 2 == 0,
-                          onChanged: (_) {},
+                  child: (model.todoList.isNotEmpty)
+                      ? ListView.builder(
+                          itemBuilder: (context, idx) {
+                            return ListTile(
+                              title:
+                                  Text("ListTile ${model.todoList[idx].title}"),
+                              subtitle: const Text("A tiny subtitle"),
+                              leading: Checkbox(
+                                value: idx % 2 == 0,
+                                onChanged: (_) {},
+                              ),
+                            );
+                          },
+                        )
+                      : const Center(
+                          child: Text("Empty Todolist"),
                         ),
-                      );
-                    },
-                  ),
                 ),
               ],
             ),
