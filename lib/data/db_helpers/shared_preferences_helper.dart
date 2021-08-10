@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SharedPreferencesService {
-  SharedPreferencesService._();
-  static final instance = SharedPreferencesService._();
+class SharedPreferencesHelper {
+  SharedPreferencesHelper._();
+  static final instance = SharedPreferencesHelper._();
 
   Future<List<Map<String, dynamic>>> getJsonList(String key) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();

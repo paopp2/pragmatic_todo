@@ -1,11 +1,11 @@
-import 'package:pragmatic_todo/data/services/shared_preferences_service.dart';
+import 'package:pragmatic_todo/data/db_helpers/shared_preferences_helper.dart';
 import 'package:pragmatic_todo/model/user/user.dart';
 
 const String keyUserList = "USER_LIST_KEY";
 
 class UserRepository {
-  UserRepository(this.sharedPrefServices);
-  final SharedPreferencesService sharedPrefServices;
+  UserRepository(this.sharedPrefHelper);
+  final SharedPreferencesHelper sharedPrefHelper;
 
   Future<User> getUser(String username) async {
     final List<User> userList = await getUserList();
@@ -25,7 +25,7 @@ class UserRepository {
   }
 
   Future<List<User>> getUserList() async {
-    final jsonList = await sharedPrefServices.getJsonList(keyUserList);
+    final jsonList = await sharedPrefHelper.getJsonList(keyUserList);
     final List<User> userList = [];
     for (final json in jsonList) {
       try {
@@ -43,6 +43,6 @@ class UserRepository {
     for (final user in userList) {
       jsonList.add(user.toJson());
     }
-    return await sharedPrefServices.saveJsonList(keyUserList, jsonList);
+    return await sharedPrefHelper.saveJsonList(keyUserList, jsonList);
   }
 }

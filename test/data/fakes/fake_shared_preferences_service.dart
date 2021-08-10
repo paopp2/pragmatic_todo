@@ -1,6 +1,6 @@
-import 'package:pragmatic_todo/data/services/shared_preferences_service.dart';
+import 'package:pragmatic_todo/data/db_helpers/shared_preferences_helper.dart';
 
-class FakeSharedPreferencesService implements SharedPreferencesService {
+class FakeSharedPreferencesService implements SharedPreferencesHelper {
   @override
   Future<List<Map<String, dynamic>>> getJsonList(String key) async {
     await Future.delayed(const Duration(microseconds: 5));
