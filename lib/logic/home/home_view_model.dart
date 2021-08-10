@@ -1,4 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pragmatic_todo/app_router.dart';
 import 'package:pragmatic_todo/data/data_providers.dart';
 import 'package:pragmatic_todo/data/services/auth_service.dart';
 
@@ -10,6 +11,8 @@ class HomeViewModel {
   void initState() {
     _authService = read(authServiceProvider);
   }
+
+  void createNewTodo() => AppRouter.instance.navigateToTodoView();
 
   void logOut() async {
     _authService.logout();
