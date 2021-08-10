@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pragmatic_todo/app_router.dart';
 import 'package:pragmatic_todo/data/data_providers.dart';
 import 'package:pragmatic_todo/logic/auth/auth_providers.dart';
 import 'package:pragmatic_todo/model/user/user.dart';
@@ -20,6 +21,8 @@ class AuthController {
     tecPassword.dispose();
     tecConfirmPass.dispose();
   }
+
+  void gotoRegisterScreen() => AppRouter.instance.navigateToRegisterScreen();
 
   Future<void> attemptLogin() async {
     read(someUserProvider).state =
@@ -57,7 +60,7 @@ class AuthController {
     }
   }
 
-  Future<bool> attemptRegisterThenLogin() async {
+  Future<void> attemptRegisterThenLogin() async {
     bool isSuccess = false;
     read(someUserProvider).state =
         await read(userRepositoryProvider).getUser(tecUsername.text);
@@ -67,10 +70,14 @@ class AuthController {
         password: tecPassword.text,
       );
       isSuccess = await read(userRepositoryProvider).addUserToUserList(newUser);
-      read(currentUserProvider).state =
-          (isSuccess) ? newUser : const User.error("Register unsuccessful");
+      if (isSuccess) {
+        read(currentUserProvider).state = newUser;
+        AppRouter.instance.popScreen();
+      } else {
+        read(currentUserProvider).state =
+            const User.error("Register unsuccesful");
+      }
     }
-    return isSuccess;
   }
 
   String? registerUsernameValidator(String? value) {

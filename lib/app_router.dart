@@ -6,6 +6,7 @@ import 'package:pragmatic_todo/ui/home/home_screen.dart';
 class AppRouter {
   AppRouter._();
   static final instance = AppRouter._();
+  final GlobalKey<NavigatorState> navigationKey = GlobalKey<NavigatorState>();
   final Map<String, Widget Function(BuildContext)> routesList = {
     Routes.homeScreen: (context) => const HomeScreen(),
     Routes.loginScreen: (context) => const LoginScreen(),
@@ -14,16 +15,18 @@ class AppRouter {
 
   Map<String, Widget Function(BuildContext)> getRoutes() => instance.routesList;
 
-  static void gotoHomeScreen(BuildContext context) =>
-      Navigator.pushNamed(context, Routes.homeScreen);
+  Future<dynamic>? navigateToRegisterScreen() =>
+      navigationKey.currentState?.pushNamed(Routes.registerScreen);
 
-  static void gotoLoginScreen(BuildContext context) =>
-      Navigator.pushNamed(context, Routes.loginScreen);
+  Future<dynamic>? navigateToLoginScreen() =>
+      navigationKey.currentState?.pushNamed(Routes.loginScreen);
 
-  static void gotoRegisterScreen(BuildContext context) =>
-      Navigator.pushNamed(context, Routes.registerScreen);
+  Future<dynamic>? navigateToHomeScreen() =>
+      navigationKey.currentState?.pushNamed(Routes.homeScreen);
 
-  static void popScreen(BuildContext context) => Navigator.pop(context);
+  void popScreen() {
+    return navigationKey.currentState?.pop();
+  }
 }
 
 class Routes {

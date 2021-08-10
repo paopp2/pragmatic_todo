@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pragmatic_todo/app_router.dart';
 import 'package:pragmatic_todo/logic/auth/auth_controller.dart';
 
 class LoginScreen extends HookConsumerWidget {
@@ -51,7 +50,7 @@ class LoginScreen extends HookConsumerWidget {
                     ),
                     TextButton(
                       child: const Text("No account?"),
-                      onPressed: () => AppRouter.gotoRegisterScreen(context),
+                      onPressed: controller.gotoRegisterScreen,
                     ),
                   ],
                 ),

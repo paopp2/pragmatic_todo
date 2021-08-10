@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      navigatorKey: _appRouter.navigationKey,
       routes: _appRouter.getRoutes(),
       home: RootScreenBuilder(
         loggedInBuilder: (_) => const HomeScreen(),
