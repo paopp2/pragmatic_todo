@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pragmatic_todo/data/data_providers.dart';
+import 'package:pragmatic_todo/model/todo/todo.dart';
 
 class TodoViewModel {
   TodoViewModel(this.read);
@@ -17,7 +19,15 @@ class TodoViewModel {
   }
 
   void saveTodo() {
-    if (todoFormKey.currentState!.validate()) {}
+    if (todoFormKey.currentState!.validate()) {
+      read(todoRepositoryProvider).addTodo(
+        const Todo(
+          title: "Hello",
+          content: "World",
+          isCompleted: false,
+        ),
+      );
+    }
   }
 
   void dispose() {}

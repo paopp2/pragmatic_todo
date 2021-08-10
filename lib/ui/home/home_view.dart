@@ -8,7 +8,8 @@ class HomeView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final model = HomeViewModel(ref.read);
+    final model = HomeViewModel(ref);
+    final todoList = model.getTodoList();
 
     useEffect(() {
       model.initState();
@@ -34,16 +35,18 @@ class HomeView extends HookConsumerWidget {
             child: Column(
               children: [
                 Expanded(
-                  child: (model.todoList.isNotEmpty)
+                  child: (todoList.isNotEmpty)
                       ? ListView.builder(
+                          itemCount: todoList.length,
                           itemBuilder: (context, idx) {
                             return ListTile(
-                              title:
-                                  Text("ListTile ${model.todoList[idx].title}"),
-                              subtitle: const Text("A tiny subtitle"),
+                              title: Text(todoList[idx].title),
+                              subtitle: Text(todoList[idx].content),
                               leading: Checkbox(
-                                value: idx % 2 == 0,
-                                onChanged: (_) {},
+                                value: todoList[idx].isCompleted,
+                                onChanged: (_) {
+                                  //TODO: Implement onTodoCheckBoxTicked
+                                },
                               ),
                             );
                           },
