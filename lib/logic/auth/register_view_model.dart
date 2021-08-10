@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pragmatic_todo/app_router.dart';
 import 'package:pragmatic_todo/data/data_providers.dart';
+import 'package:pragmatic_todo/data/repositories/user_repository.dart';
 import 'package:pragmatic_todo/model/user/user.dart';
 
 class RegisterViewModel {
@@ -11,19 +12,23 @@ class RegisterViewModel {
   final tecUsername = TextEditingController();
   final tecPassword = TextEditingController();
   final tecConfirmPass = TextEditingController();
+  late UserRepository _userRepository;
   late User _userQuery;
 
-  void initState() {}
+  void initState() {
+    _userQuery = const User.error("Not yet used");
+    _userRepository = read(userRepositoryProvider);
+  }
 
   Future<void> attemptRegisterThenLogin() async {
-    _userQuery = await read(userRepositoryProvider).getUser(tecUsername.text);
+    _userQuery = await _userRepository.getUser(tecUsername.text);
     if (registerFormKey.currentState!.validate()) {
       final newUser = User(
         username: tecUsername.text,
         password: tecPassword.text,
       );
       bool isSuccess = false;
-      isSuccess = await read(userRepositoryProvider).addUserToUserList(newUser);
+      isSuccess = await _userRepository.addUserToUserList(newUser);
       if (isSuccess) {
         read(authStateProvider.notifier).logInAs(newUser);
         AppRouter.instance.popScreen();
