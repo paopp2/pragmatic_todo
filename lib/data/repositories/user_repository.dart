@@ -31,6 +31,7 @@ class UserRepository {
       try {
         userList.add(User.fromJson(json));
       } catch (e) {
+        // TODO: Implement a proper catch for this Error
         throw ("Implement a proper catch for this Error: ${e.toString()}");
       }
     }
