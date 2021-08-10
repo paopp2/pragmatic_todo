@@ -15,7 +15,7 @@ class UserRepository {
         userOfInterest = user;
       }
     }
-    return userOfInterest ?? const User.error("This username doesn't exist");
+    return userOfInterest ?? const User.error("This user doesn't exist");
   }
 
   Future<bool> addUserToUserList(User user) async {
