@@ -27,11 +27,10 @@ class RegisterViewModel {
       bool isSuccess = false;
       isSuccess = await read(userRepositoryProvider).addUserToUserList(newUser);
       if (isSuccess) {
-        read(currentUserProvider).state = newUser;
+        read(authStateProvider.notifier).logInAs(newUser);
         AppRouter.instance.popScreen();
       } else {
-        read(currentUserProvider).state =
-            const User.error("Register unsuccesful");
+        read(authStateProvider.notifier).error("Register unsuccessful");
       }
     }
   }

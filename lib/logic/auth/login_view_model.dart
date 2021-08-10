@@ -18,10 +18,10 @@ class LoginViewModel {
   Future<void> attemptLogin() async {
     read(tempUserProvider).state =
         await read(userRepositoryProvider).getUser(tecUsername.text);
-    final someUser = read(tempUserProvider).state;
+    final returnedUser = read(tempUserProvider).state;
     if (loginFormKey.currentState!.validate()) {
-      read(currentUserProvider).state =
-          someUser ?? const User.error("Error logging in");
+      read(authStateProvider.notifier)
+          .logInAs(returnedUser ?? const User.error("Error logging in"));
     }
   }
 
@@ -32,7 +32,7 @@ class LoginViewModel {
       final User? userCheck = read(tempUserProvider).state;
       final usernameValidation = userCheck?.whenOrNull(
         null,
-        error: (String? errorMsg) => errorMsg,
+        error: (errorMsg) => errorMsg,
       );
       return usernameValidation;
     }
