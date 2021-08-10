@@ -8,8 +8,33 @@ class TodoView extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Scaffold(
-          body: Container(
-            color: Colors.green,
+          floatingActionButton: FloatingActionButton(
+            child: const Icon(Icons.check),
+            onPressed: () {
+              //TODO: Implement TodoView onFabPressed
+            },
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Title',
+                  ),
+                ),
+                SizedBox(height: 15),
+                TextField(
+                  maxLines: 10,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Content',
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },
