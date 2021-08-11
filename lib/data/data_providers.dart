@@ -16,5 +16,4 @@ final todoRepositoryProvider = Provider.autoDispose<TodoRepository>((ref) {
 final authServiceProvider =
     Provider.autoDispose<AuthService>((ref) => AuthService(ref.read));
 
-final currentUserProvider =
-    StateProvider.autoDispose<User>((ref) => const User.loggedOut());
+final currentUserProvider = StateProvider.autoDispose<User?>((ref) => null);

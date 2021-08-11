@@ -8,13 +8,13 @@ class TodoRepository {
   final Reader read;
 
   List<Todo> getTodoList() {
-    final User currentUser = read(currentUserProvider).state;
-    return (currentUser is Data) ? currentUser.todos : [];
+    final User? currentUser = read(currentUserProvider).state;
+    return currentUser?.todos ?? [];
   }
 
   void addTodo(Todo newTodo) {
-    final User currentUser = read(currentUserProvider).state;
-    if (currentUser is Data) {
+    final User? currentUser = read(currentUserProvider).state;
+    if (currentUser != null) {
       var currentTodos = currentUser.todos;
       currentTodos.add(newTodo);
       currentUser.copyWith(todos: currentTodos);

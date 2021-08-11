@@ -7,15 +7,15 @@ class UserRepository {
   UserRepository(this.sharedPrefHelper);
   final SharedPreferencesHelper sharedPrefHelper;
 
-  Future<User> getUser(String username) async {
+  Future<User?> getUser(String username) async {
     final List<User> userList = await getUserList();
     User? userOfInterest;
-    for (final user in userList) {
-      if ((user is Data) && (user.username == username)) {
+    for (var user in userList) {
+      if (user.username == username) {
         userOfInterest = user;
       }
     }
-    return userOfInterest ?? const User.error("This user doesn't exist");
+    return userOfInterest;
   }
 
   Future<bool> addUserToUserList(User user) async {

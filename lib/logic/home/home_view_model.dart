@@ -14,20 +14,18 @@ final homeViewModelProvider = Provider.autoDispose<HomeViewModel>(
 
 class HomeViewModel {
   HomeViewModel({
-    required this.currentUser,
+    this.currentUser,
     required this.authService,
   });
-  final User currentUser;
+  final User? currentUser;
   final AuthService authService;
 
   void initState() {}
   void dispose() {}
 
   List<Todo> getTodoList() {
-    List<Todo> todos = [];
-    currentUser.mapOrNull(
-      (user) => todos = user.todos,
-    );
+    List<Todo> todos;
+    todos = currentUser?.todos ?? [];
     return todos;
   }
 

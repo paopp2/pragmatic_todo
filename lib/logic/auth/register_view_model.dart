@@ -14,11 +14,10 @@ class RegisterViewModel {
   final tecPassword = TextEditingController();
   final tecConfirmPass = TextEditingController();
   late UserRepository _userRepository;
-  late User _userQuery;
   late AuthService _authService;
+  User? _userQuery;
 
   void initState() {
-    _userQuery = const User.error("Not yet used");
     _userRepository = read(userRepositoryProvider);
     _authService = read(authServiceProvider);
   }
@@ -35,8 +34,6 @@ class RegisterViewModel {
       if (isSuccess) {
         _authService.loginAs(newUser);
         AppRouter.instance.popView();
-      } else {
-        _authService.error("Register unsuccessful");
       }
     }
   }
@@ -46,9 +43,9 @@ class RegisterViewModel {
       return "This field can't be empty";
     } else {
       final User? tmpUser = _userQuery;
-      return (tmpUser is Data)
-          ? "The username '${tmpUser.username}' is taken"
-          : null;
+      if (tmpUser != null) {
+        return "The username '${tmpUser.username}' is taken";
+      }
     }
   }
 

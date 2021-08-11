@@ -15,9 +15,10 @@ void main() async {
   String? currentUsername = await AuthService.getCurrentUser();
   final sharedPrefsHelper = SharedPreferencesHelper.instance;
   final userRepository = UserRepository(sharedPrefsHelper);
-  User currentUser = (currentUsername != null)
-      ? await userRepository.getUser(currentUsername)
-      : const User.loggedOut();
+  User? currentUser;
+  if (currentUsername != null) {
+    currentUser = await userRepository.getUser(currentUsername);
+  }
   runApp(
     ProviderScope(
       overrides: [

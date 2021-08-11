@@ -12,11 +12,10 @@ class LoginViewModel {
   final loginFormKey = GlobalKey<FormState>();
   final tecUsername = TextEditingController();
   late UserRepository _userRepository;
-  late User _userQuery;
+  User? _userQuery;
   late AuthService _authService;
 
   void initState() {
-    _userQuery = const User.error("Not yet used");
     _userRepository = read(userRepositoryProvider);
     _authService = read(authServiceProvider);
   }
@@ -25,11 +24,8 @@ class LoginViewModel {
 
   Future<void> attemptLogin() async {
     _userQuery = await _userRepository.getUser(tecUsername.text);
-    final returnedUser = _userQuery;
     if (loginFormKey.currentState!.validate()) {
-      returnedUser.mapOrNull(
-        (user) => _authService.loginAs(user),
-      );
+      _authService.loginAs(_userQuery);
     }
   }
 
@@ -38,7 +34,7 @@ class LoginViewModel {
       return "This field can't be empty";
     } else {
       final User? tmpUser = _userQuery;
-      return (tmpUser is Error) ? tmpUser.errorMsg : null;
+      return (tmpUser == null) ? "This user doesn't exist" : null;
     }
   }
 
@@ -47,9 +43,10 @@ class LoginViewModel {
       return "This field can't be empty";
     } else {
       final User? tmpUser = _userQuery;
-      if (tmpUser is Data) {
-        if (tmpUser.password != value) return "Incorrect password";
-      }
+      print(tmpUser);
+      return (tmpUser != null && tmpUser.password != value)
+          ? "Incorrect password"
+          : null;
     }
   }
 

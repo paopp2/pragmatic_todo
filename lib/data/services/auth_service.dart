@@ -14,19 +14,17 @@ class AuthService {
     return await prefs.getRawString(keyCurrentUser);
   }
 
-  void loginAs(User user) {
-    final prefs = SharedPreferencesHelper.instance;
-    if (user is Data) prefs.saveRawString(keyCurrentUser, user.username);
-    read(currentUserProvider).state = user;
+  void loginAs(User? user) {
+    if (user is User) {
+      final prefs = SharedPreferencesHelper.instance;
+      prefs.saveRawString(keyCurrentUser, user.username);
+      read(currentUserProvider).state = user;
+    }
   }
 
   void logout() {
     final prefs = SharedPreferencesHelper.instance;
     prefs.delete(keyCurrentUser);
-    read(currentUserProvider).state = const User.loggedOut();
-  }
-
-  void error([String? errorMsg]) {
-    read(currentUserProvider).state = User.error(errorMsg);
+    read(currentUserProvider).state = null;
   }
 }
