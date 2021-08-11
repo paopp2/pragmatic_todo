@@ -8,7 +8,7 @@ class UserRepository {
   final SharedPreferencesHelper sharedPrefHelper;
 
   Future<User?> getUser(String username) async {
-    final List<User> userList = await getUserList();
+    final List<User> userList = await getAllUsers();
     User? userOfInterest;
     for (var user in userList) {
       if (user.username == username) {
@@ -18,13 +18,24 @@ class UserRepository {
     return userOfInterest;
   }
 
-  Future<bool> addUserToUserList(User user) async {
-    final userList = await getUserList();
-    userList.add(user);
-    return await saveUserList(userList);
+  Future<bool> updateUser(User user) async {
+    List<User> userList = await getAllUsers();
+    final index = userList.indexWhere((u) => (u.username == user.username));
+    if (index.isNegative) {
+      return false;
+    } else {
+      userList[index] = user;
+      return await _updateUserList(userList);
+    }
   }
 
-  Future<List<User>> getUserList() async {
+  Future<bool> addNewUser(User user) async {
+    final userList = await getAllUsers();
+    userList.add(user);
+    return await _updateUserList(userList);
+  }
+
+  Future<List<User>> getAllUsers() async {
     final jsonList = await sharedPrefHelper.getJsonList(keyUserList);
     final List<User> userList = [];
     for (final json in jsonList) {
@@ -38,7 +49,7 @@ class UserRepository {
     return userList;
   }
 
-  Future<bool> saveUserList(List<User> userList) async {
+  Future<bool> _updateUserList(List<User> userList) async {
     List<Map<String, dynamic>> jsonList = [];
     for (final user in userList) {
       jsonList.add(user.toJson());

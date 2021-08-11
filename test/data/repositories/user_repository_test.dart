@@ -8,7 +8,7 @@ void main() {
     test('Returns a list of users if completes successfully', () async {
       final fakeSharedPreferencesService = FakeSharedPreferencesService();
       final userRepository = UserRepository(fakeSharedPreferencesService);
-      expect(await userRepository.getUserList(), isA<List<User>>());
+      expect(await userRepository.getAllUsers(), isA<List<User>>());
     });
   });
 }

@@ -20,8 +20,9 @@ class TodoRepository {
       assert(currentUser != null);
       var currentTodos = currentUser!.todos;
       currentTodos.add(newTodo);
-      currentUser!.copyWith(todos: currentTodos);
-      currentUserNotifier.setNew(currentUser!);
+      final updatedUser = currentUser!.copyWith(todos: currentTodos);
+      userRepository.updateUser(updatedUser);
+      currentUserNotifier.setNew(updatedUser);
     }
   }
 
@@ -34,6 +35,7 @@ class TodoRepository {
       final Todo toggledTodo = todoToToggle.copyWith(isDone: toggledStatus);
       currentTodos[index] = toggledTodo;
       final updatedUser = currentUser!.copyWith(todos: currentTodos);
+      userRepository.updateUser(updatedUser);
       currentUserNotifier.setNew(updatedUser);
     }
   }

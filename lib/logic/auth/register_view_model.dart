@@ -35,7 +35,7 @@ class RegisterViewModel {
         password: tecPassword.text,
       );
       bool isSuccess = false;
-      isSuccess = await userRepository.addUserToUserList(newUser);
+      isSuccess = await userRepository.addNewUser(newUser);
       if (isSuccess) {
         authService.loginAs(newUser);
         AppRouter.instance.popView();
