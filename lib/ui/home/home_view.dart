@@ -38,15 +38,13 @@ class HomeView extends HookConsumerWidget {
                   child: (todoList.isNotEmpty)
                       ? ListView.builder(
                           itemCount: todoList.length,
-                          itemBuilder: (context, idx) {
+                          itemBuilder: (context, index) {
                             return ListTile(
-                              title: Text(todoList[idx].title),
-                              subtitle: Text(todoList[idx].content),
+                              title: Text(todoList[index].title),
+                              subtitle: Text(todoList[index].content),
                               leading: Checkbox(
-                                value: todoList[idx].isDone,
-                                onChanged: (_) {
-                                  //TODO: Implement onTodoCheckBoxTicked
-                                },
+                                value: todoList[index].isDone,
+                                onChanged: (_) => model.toggleTodo(index),
                               ),
                             );
                           },

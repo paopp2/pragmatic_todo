@@ -22,7 +22,7 @@ class _$TodoTearOff {
   const _$TodoTearOff();
 
   _Todo call(
-      {required String title, required String content, required bool isDone}) {
+      {required String title, required String content, bool isDone = false}) {
     return _Todo(
       title: title,
       content: content,
@@ -129,10 +129,9 @@ class __$TodoCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Todo extends _Todo with DiagnosticableTreeMixin {
+class _$_Todo with DiagnosticableTreeMixin implements _Todo {
   const _$_Todo(
-      {required this.title, required this.content, required this.isDone})
-      : super._();
+      {required this.title, required this.content, this.isDone = false});
 
   factory _$_Todo.fromJson(Map<String, dynamic> json) => _$$_TodoFromJson(json);
 
@@ -140,6 +139,7 @@ class _$_Todo extends _Todo with DiagnosticableTreeMixin {
   final String title;
   @override
   final String content;
+  @JsonKey(defaultValue: false)
   @override
   final bool isDone;
 
@@ -189,12 +189,9 @@ class _$_Todo extends _Todo with DiagnosticableTreeMixin {
   }
 }
 
-abstract class _Todo extends Todo {
+abstract class _Todo implements Todo {
   const factory _Todo(
-      {required String title,
-      required String content,
-      required bool isDone}) = _$_Todo;
-  const _Todo._() : super._();
+      {required String title, required String content, bool isDone}) = _$_Todo;
 
   factory _Todo.fromJson(Map<String, dynamic> json) = _$_Todo.fromJson;
 
