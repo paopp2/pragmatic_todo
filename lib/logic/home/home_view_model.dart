@@ -26,5 +26,5 @@ class HomeViewModel {
   List<Todo> getTodoList() => todoRepository.getTodos();
   void toggleTodo(int index) => todoRepository.toggleTodo(index);
   void createNewTodo() => AppRouter.instance.navigateToTodoView();
-  void logOut() async => authService.logout();
+  void logOut() => authService.logout();
 }
