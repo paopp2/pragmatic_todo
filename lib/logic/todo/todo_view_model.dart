@@ -8,6 +8,8 @@ class TodoViewModel {
   TodoViewModel(this.read);
   final Reader read;
   final todoFormKey = GlobalKey<FormState>();
+  final tecTodoTitle = TextEditingController();
+  final tecTodoContent = TextEditingController();
 
   void initState() {}
 
@@ -21,10 +23,11 @@ class TodoViewModel {
 
   void saveTodo() {
     if (todoFormKey.currentState!.validate()) {
+      var title = tecTodoTitle.text;
       read(todoRepositoryProvider).addTodo(
-        const Todo(
-          title: "Hello",
-          content: "World",
+        Todo(
+          title: (title.isNotEmpty) ? title : "Untitled",
+          content: tecTodoContent.text,
           isCompleted: false,
         ),
       );
@@ -32,5 +35,8 @@ class TodoViewModel {
     }
   }
 
-  void dispose() {}
+  void dispose() {
+    tecTodoTitle.dispose();
+    tecTodoContent.dispose();
+  }
 }

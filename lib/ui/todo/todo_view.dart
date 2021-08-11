@@ -31,6 +31,7 @@ class TodoView extends HookConsumerWidget {
                 children: [
                   TextFormField(
                     validator: model.todoTitleValidator,
+                    controller: model.tecTodoTitle,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Title',
@@ -39,6 +40,7 @@ class TodoView extends HookConsumerWidget {
                   const SizedBox(height: 15),
                   TextFormField(
                     validator: model.todoContentValidator,
+                    controller: model.tecTodoContent,
                     maxLines: 10,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
