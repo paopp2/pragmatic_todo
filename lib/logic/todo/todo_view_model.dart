@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pragmatic_todo/app_router.dart';
 import 'package:pragmatic_todo/data/data_providers.dart';
 import 'package:pragmatic_todo/model/todo/todo.dart';
 
@@ -27,6 +28,7 @@ class TodoViewModel {
           isCompleted: false,
         ),
       );
+      AppRouter.instance.popView();
     }
   }
 
