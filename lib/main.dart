@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pragmatic_todo/app_router.dart';
 import 'package:pragmatic_todo/data/data_providers.dart';
-import 'package:pragmatic_todo/data/db_helpers/shared_preferences_helper.dart';
+import 'package:pragmatic_todo/data/helpers/shared_preferences_helper.dart';
 import 'package:pragmatic_todo/data/repositories/user_repository.dart';
 import 'package:pragmatic_todo/data/services/auth_service.dart';
 import 'package:pragmatic_todo/model/user/user.dart';

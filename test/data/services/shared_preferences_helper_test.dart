@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:pragmatic_todo/data/db_helpers/shared_preferences_helper.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:pragmatic_todo/data/helpers/shared_preferences_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {

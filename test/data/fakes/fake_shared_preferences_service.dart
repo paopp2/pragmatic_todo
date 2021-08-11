@@ -1,4 +1,4 @@
-import 'package:pragmatic_todo/data/db_helpers/shared_preferences_helper.dart';
+import 'package:pragmatic_todo/data/helpers/shared_preferences_helper.dart';
 
 class FakeSharedPreferencesService implements SharedPreferencesHelper {
   @override
