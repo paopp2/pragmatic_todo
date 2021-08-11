@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pragmatic_todo/data/data_providers.dart';
+import 'package:pragmatic_todo/data/data_providers/current_user_provider.dart';
 import 'package:pragmatic_todo/data/helpers/shared_preferences_helper.dart';
 import 'package:pragmatic_todo/model/user/user.dart';
 
@@ -18,13 +18,13 @@ class AuthService {
     if (user is User) {
       final prefs = SharedPreferencesHelper.instance;
       prefs.saveRawString(keyCurrentUser, user.username);
-      read(currentUserProvider).state = user;
+      read(currentUserProvider.notifier).setNew(user);
     }
   }
 
   void logout() {
     final prefs = SharedPreferencesHelper.instance;
     prefs.delete(keyCurrentUser);
-    read(currentUserProvider).state = null;
+    read(currentUserProvider.notifier).remove();
   }
 }

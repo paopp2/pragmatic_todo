@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pragmatic_todo/app_router.dart';
-import 'package:pragmatic_todo/data/data_providers.dart';
+import 'package:pragmatic_todo/data/data_providers/repository_providers.dart';
 import 'package:pragmatic_todo/data/repositories/todo_repository.dart';
 import 'package:pragmatic_todo/model/todo/todo.dart';
 

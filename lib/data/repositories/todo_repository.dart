@@ -1,12 +1,17 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pragmatic_todo/data/data_providers.dart';
+import 'package:pragmatic_todo/data/data_providers/current_user_provider.dart';
+import 'package:pragmatic_todo/data/repositories/user_repository.dart';
 import 'package:pragmatic_todo/model/todo/todo.dart';
 import 'package:pragmatic_todo/model/user/user.dart';
 
 class TodoRepository {
-  TodoRepository({this.currentUser, required this.read});
-  final Reader read;
+  TodoRepository({
+    required this.currentUser,
+    required this.userRepository,
+    required this.currentUserNotifier,
+  });
+  final UserRepository userRepository;
   final User? currentUser;
+  final CurrentUserNotifier currentUserNotifier;
 
   List<Todo> getTodos() => currentUser?.todos ?? [];
 
@@ -16,20 +21,20 @@ class TodoRepository {
       var currentTodos = currentUser!.todos;
       currentTodos.add(newTodo);
       currentUser!.copyWith(todos: currentTodos);
-      read(currentUserProvider).state = currentUser;
+      currentUserNotifier.setNew(currentUser!);
     }
   }
 
   void toggleTodo(int index) {
     if (currentUser != null) {
       assert(currentUser != null);
-      var currentTodos = currentUser!.todos;
+      final currentTodos = currentUser!.todos;
       final Todo todoToToggle = currentTodos[index];
       final bool toggledStatus = !todoToToggle.isDone;
       final Todo toggledTodo = todoToToggle.copyWith(isDone: toggledStatus);
       currentTodos[index] = toggledTodo;
-      currentUser!.copyWith(todos: currentTodos);
-      read(currentUserProvider).state = currentUser;
+      final updatedUser = currentUser!.copyWith(todos: currentTodos);
+      currentUserNotifier.setNew(updatedUser);
     }
   }
 }
