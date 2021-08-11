@@ -6,26 +6,29 @@ import 'package:pragmatic_todo/data/repositories/user_repository.dart';
 import 'package:pragmatic_todo/data/services/auth_service.dart';
 import 'package:pragmatic_todo/model/user/user.dart';
 
+final loginViewModelProvider = Provider.autoDispose(
+  (ref) => LoginViewModel(
+    authService: ref.watch(authServiceProvider),
+    userRepository: ref.watch(userRepositoryProvider),
+  ),
+);
+
 class LoginViewModel {
-  LoginViewModel(this.read);
-  final Reader read;
+  LoginViewModel({required this.userRepository, required this.authService});
+  final UserRepository userRepository;
+  final AuthService authService;
   final loginFormKey = GlobalKey<FormState>();
   final tecUsername = TextEditingController();
-  late UserRepository _userRepository;
   User? _userQuery;
-  late AuthService _authService;
 
-  void initState() {
-    _userRepository = read(userRepositoryProvider);
-    _authService = read(authServiceProvider);
-  }
+  void initState() {}
 
   void gotoRegisterScreen() => AppRouter.instance.navigateToRegisterView();
 
   Future<void> attemptLogin() async {
-    _userQuery = await _userRepository.getUser(tecUsername.text);
+    _userQuery = await userRepository.getUser(tecUsername.text);
     if (loginFormKey.currentState!.validate()) {
-      _authService.loginAs(_userQuery);
+      authService.loginAs(_userQuery);
     }
   }
 
@@ -43,7 +46,6 @@ class LoginViewModel {
       return "This field can't be empty";
     } else {
       final User? tmpUser = _userQuery;
-      print(tmpUser);
       return (tmpUser != null && tmpUser.password != value)
           ? "Incorrect password"
           : null;

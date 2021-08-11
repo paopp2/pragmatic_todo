@@ -8,7 +8,7 @@ class RegisterView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final model = RegisterViewModel(ref.read);
+    final model = ref.watch(registerViewModelProvider);
 
     useEffect(() {
       model.initState();

@@ -8,7 +8,7 @@ class LoginView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final model = LoginViewModel(ref.read);
+    final model = ref.watch(loginViewModelProvider);
 
     useEffect(() {
       model.initState();

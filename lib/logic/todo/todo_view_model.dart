@@ -2,11 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pragmatic_todo/app_router.dart';
 import 'package:pragmatic_todo/data/data_providers.dart';
+import 'package:pragmatic_todo/data/repositories/todo_repository.dart';
 import 'package:pragmatic_todo/model/todo/todo.dart';
 
+final todoViewModelProvider = Provider.autoDispose<TodoViewModel>(
+  (ref) => TodoViewModel(
+    todoRepository: ref.watch(todoRepositoryProvider),
+  ),
+);
+
 class TodoViewModel {
-  TodoViewModel(this.read);
-  final Reader read;
+  TodoViewModel({required this.todoRepository});
+  final TodoRepository todoRepository;
   final todoFormKey = GlobalKey<FormState>();
   final tecTodoTitle = TextEditingController();
   final tecTodoContent = TextEditingController();
@@ -24,7 +31,7 @@ class TodoViewModel {
   void saveTodo() {
     if (todoFormKey.currentState!.validate()) {
       var title = tecTodoTitle.text;
-      read(todoRepositoryProvider).addTodo(
+      todoRepository.addTodo(
         Todo(
           title: (title.isNotEmpty) ? title : "Untitled",
           content: tecTodoContent.text,

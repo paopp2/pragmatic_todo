@@ -8,7 +8,7 @@ class TodoView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final model = TodoViewModel(ref.read);
+    final model = ref.watch(todoViewModelProvider);
 
     useEffect(() {
       model.initState();

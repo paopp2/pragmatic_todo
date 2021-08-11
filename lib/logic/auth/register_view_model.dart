@@ -6,33 +6,36 @@ import 'package:pragmatic_todo/data/repositories/user_repository.dart';
 import 'package:pragmatic_todo/data/services/auth_service.dart';
 import 'package:pragmatic_todo/model/user/user.dart';
 
+final registerViewModelProvider = Provider.autoDispose<RegisterViewModel>(
+  (ref) => RegisterViewModel(
+    userRepository: ref.watch(userRepositoryProvider),
+    authService: ref.watch(authServiceProvider),
+  ),
+);
+
 class RegisterViewModel {
-  RegisterViewModel(this.read);
-  final Reader read;
+  RegisterViewModel({required this.userRepository, required this.authService});
+  final UserRepository userRepository;
+  final AuthService authService;
   final registerFormKey = GlobalKey<FormState>();
   final tecUsername = TextEditingController();
   final tecPassword = TextEditingController();
   final tecConfirmPass = TextEditingController();
-  late UserRepository _userRepository;
-  late AuthService _authService;
   User? _userQuery;
 
-  void initState() {
-    _userRepository = read(userRepositoryProvider);
-    _authService = read(authServiceProvider);
-  }
+  void initState() {}
 
   Future<void> attemptRegisterThenLogin() async {
-    _userQuery = await _userRepository.getUser(tecUsername.text);
+    _userQuery = await userRepository.getUser(tecUsername.text);
     if (registerFormKey.currentState!.validate()) {
       final newUser = User(
         username: tecUsername.text,
         password: tecPassword.text,
       );
       bool isSuccess = false;
-      isSuccess = await _userRepository.addUserToUserList(newUser);
+      isSuccess = await userRepository.addUserToUserList(newUser);
       if (isSuccess) {
-        _authService.loginAs(newUser);
+        authService.loginAs(newUser);
         AppRouter.instance.popView();
       }
     }
