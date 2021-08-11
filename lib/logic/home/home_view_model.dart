@@ -8,7 +8,7 @@ import 'package:pragmatic_todo/model/user/user.dart';
 final homeViewModelProvider = Provider.autoDispose<HomeViewModel>(
   (ref) => HomeViewModel(
     currentUser: ref.watch(currentUserProvider).state,
-    authService: ref.read(authServiceProvider),
+    authService: ref.watch(authServiceProvider),
   ),
 );
 
