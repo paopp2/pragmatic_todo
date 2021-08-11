@@ -5,25 +5,32 @@ import 'package:pragmatic_todo/data/services/auth_service.dart';
 import 'package:pragmatic_todo/model/todo/todo.dart';
 import 'package:pragmatic_todo/model/user/user.dart';
 
-class HomeViewModel {
-  HomeViewModel(this.ref);
-  final WidgetRef ref;
-  late AuthService _authService;
+final homeViewModelProvider = Provider.autoDispose<HomeViewModel>(
+  (ref) => HomeViewModel(
+    currentUser: ref.watch(currentUserProvider).state,
+    authService: ref.read(authServiceProvider),
+  ),
+);
 
-  void initState() {
-    _authService = ref.read(authServiceProvider);
+class HomeViewModel {
+  HomeViewModel({
+    required this.currentUser,
+    required this.authService,
+  });
+  final User currentUser;
+  final AuthService authService;
+
+  void initState() {}
+  void dispose() {}
+
+  List<Todo> getTodoList() {
+    List<Todo> todos = [];
+    currentUser.mapOrNull(
+      (user) => todos = user.todos,
+    );
+    return todos;
   }
 
   void createNewTodo() => AppRouter.instance.navigateToTodoView();
-
-  List<Todo> getTodoList() {
-    final currentUser = ref.watch(currentUserProvider).state;
-    return (currentUser is Data) ? currentUser.todos : [];
-  }
-
-  void logOut() async {
-    _authService.logout();
-  }
-
-  void dispose() {}
+  void logOut() async => authService.logout();
 }

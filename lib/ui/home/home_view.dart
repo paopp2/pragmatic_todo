@@ -8,7 +8,7 @@ class HomeView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final model = HomeViewModel(ref);
+    final model = ref.watch(homeViewModelProvider);
     final todoList = model.getTodoList();
 
     useEffect(() {
