@@ -27,6 +27,7 @@ class LoginViewModel {
 
   Future<void> attemptLogin() async {
     _userQuery = await userRepository.getUser(tecUsername.text);
+    assert(loginFormKey.currentState != null);
     if (loginFormKey.currentState!.validate()) {
       authService.loginAs(_userQuery);
     }

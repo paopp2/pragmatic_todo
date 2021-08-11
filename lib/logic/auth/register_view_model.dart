@@ -27,6 +27,7 @@ class RegisterViewModel {
 
   Future<void> attemptRegisterThenLogin() async {
     _userQuery = await userRepository.getUser(tecUsername.text);
+    assert(registerFormKey.currentState != null);
     if (registerFormKey.currentState!.validate()) {
       final newUser = User(
         username: tecUsername.text,

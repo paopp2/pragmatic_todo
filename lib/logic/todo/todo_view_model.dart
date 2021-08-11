@@ -29,6 +29,7 @@ class TodoViewModel {
   }
 
   void saveTodo() {
+    assert(todoFormKey.currentState != null);
     if (todoFormKey.currentState!.validate()) {
       var title = tecTodoTitle.text;
       todoRepository.addTodo(
