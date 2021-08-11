@@ -22,13 +22,11 @@ class _$TodoTearOff {
   const _$TodoTearOff();
 
   _Todo call(
-      {required String title,
-      required String content,
-      required bool isCompleted}) {
+      {required String title, required String content, required bool isDone}) {
     return _Todo(
       title: title,
       content: content,
-      isCompleted: isCompleted,
+      isDone: isDone,
     );
   }
 
@@ -44,7 +42,7 @@ const $Todo = _$TodoTearOff();
 mixin _$Todo {
   String get title => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
-  bool get isCompleted => throw _privateConstructorUsedError;
+  bool get isDone => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -55,7 +53,7 @@ mixin _$Todo {
 abstract class $TodoCopyWith<$Res> {
   factory $TodoCopyWith(Todo value, $Res Function(Todo) then) =
       _$TodoCopyWithImpl<$Res>;
-  $Res call({String title, String content, bool isCompleted});
+  $Res call({String title, String content, bool isDone});
 }
 
 /// @nodoc
@@ -70,7 +68,7 @@ class _$TodoCopyWithImpl<$Res> implements $TodoCopyWith<$Res> {
   $Res call({
     Object? title = freezed,
     Object? content = freezed,
-    Object? isCompleted = freezed,
+    Object? isDone = freezed,
   }) {
     return _then(_value.copyWith(
       title: title == freezed
@@ -81,9 +79,9 @@ class _$TodoCopyWithImpl<$Res> implements $TodoCopyWith<$Res> {
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      isCompleted: isCompleted == freezed
-          ? _value.isCompleted
-          : isCompleted // ignore: cast_nullable_to_non_nullable
+      isDone: isDone == freezed
+          ? _value.isDone
+          : isDone // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -94,7 +92,7 @@ abstract class _$TodoCopyWith<$Res> implements $TodoCopyWith<$Res> {
   factory _$TodoCopyWith(_Todo value, $Res Function(_Todo) then) =
       __$TodoCopyWithImpl<$Res>;
   @override
-  $Res call({String title, String content, bool isCompleted});
+  $Res call({String title, String content, bool isDone});
 }
 
 /// @nodoc
@@ -110,7 +108,7 @@ class __$TodoCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res>
   $Res call({
     Object? title = freezed,
     Object? content = freezed,
-    Object? isCompleted = freezed,
+    Object? isDone = freezed,
   }) {
     return _then(_Todo(
       title: title == freezed
@@ -121,9 +119,9 @@ class __$TodoCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      isCompleted: isCompleted == freezed
-          ? _value.isCompleted
-          : isCompleted // ignore: cast_nullable_to_non_nullable
+      isDone: isDone == freezed
+          ? _value.isDone
+          : isDone // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -131,9 +129,10 @@ class __$TodoCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Todo with DiagnosticableTreeMixin implements _Todo {
+class _$_Todo extends _Todo with DiagnosticableTreeMixin {
   const _$_Todo(
-      {required this.title, required this.content, required this.isCompleted});
+      {required this.title, required this.content, required this.isDone})
+      : super._();
 
   factory _$_Todo.fromJson(Map<String, dynamic> json) => _$$_TodoFromJson(json);
 
@@ -142,11 +141,11 @@ class _$_Todo with DiagnosticableTreeMixin implements _Todo {
   @override
   final String content;
   @override
-  final bool isCompleted;
+  final bool isDone;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Todo(title: $title, content: $content, isCompleted: $isCompleted)';
+    return 'Todo(title: $title, content: $content, isDone: $isDone)';
   }
 
   @override
@@ -156,7 +155,7 @@ class _$_Todo with DiagnosticableTreeMixin implements _Todo {
       ..add(DiagnosticsProperty('type', 'Todo'))
       ..add(DiagnosticsProperty('title', title))
       ..add(DiagnosticsProperty('content', content))
-      ..add(DiagnosticsProperty('isCompleted', isCompleted));
+      ..add(DiagnosticsProperty('isDone', isDone));
   }
 
   @override
@@ -168,9 +167,8 @@ class _$_Todo with DiagnosticableTreeMixin implements _Todo {
             (identical(other.content, content) ||
                 const DeepCollectionEquality()
                     .equals(other.content, content)) &&
-            (identical(other.isCompleted, isCompleted) ||
-                const DeepCollectionEquality()
-                    .equals(other.isCompleted, isCompleted)));
+            (identical(other.isDone, isDone) ||
+                const DeepCollectionEquality().equals(other.isDone, isDone)));
   }
 
   @override
@@ -178,7 +176,7 @@ class _$_Todo with DiagnosticableTreeMixin implements _Todo {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(title) ^
       const DeepCollectionEquality().hash(content) ^
-      const DeepCollectionEquality().hash(isCompleted);
+      const DeepCollectionEquality().hash(isDone);
 
   @JsonKey(ignore: true)
   @override
@@ -191,11 +189,12 @@ class _$_Todo with DiagnosticableTreeMixin implements _Todo {
   }
 }
 
-abstract class _Todo implements Todo {
+abstract class _Todo extends Todo {
   const factory _Todo(
       {required String title,
       required String content,
-      required bool isCompleted}) = _$_Todo;
+      required bool isDone}) = _$_Todo;
+  const _Todo._() : super._();
 
   factory _Todo.fromJson(Map<String, dynamic> json) = _$_Todo.fromJson;
 
@@ -204,7 +203,7 @@ abstract class _Todo implements Todo {
   @override
   String get content => throw _privateConstructorUsedError;
   @override
-  bool get isCompleted => throw _privateConstructorUsedError;
+  bool get isDone => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$TodoCopyWith<_Todo> get copyWith => throw _privateConstructorUsedError;

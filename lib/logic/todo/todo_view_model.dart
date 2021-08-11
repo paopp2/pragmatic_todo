@@ -35,7 +35,7 @@ class TodoViewModel {
         Todo(
           title: (title.isNotEmpty) ? title : "Untitled",
           content: tecTodoContent.text,
-          isCompleted: false,
+          isDone: false,
         ),
       );
       AppRouter.instance.popView();

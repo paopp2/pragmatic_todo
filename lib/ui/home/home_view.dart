@@ -43,7 +43,7 @@ class HomeView extends HookConsumerWidget {
                               title: Text(todoList[idx].title),
                               subtitle: Text(todoList[idx].content),
                               leading: Checkbox(
-                                value: todoList[idx].isCompleted,
+                                value: todoList[idx].isDone,
                                 onChanged: (_) {
                                   //TODO: Implement onTodoCheckBoxTicked
                                 },
