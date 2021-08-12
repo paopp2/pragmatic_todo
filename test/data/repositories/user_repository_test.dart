@@ -1,7 +1,7 @@
 import 'package:pragmatic_todo/data/repositories/user_repository.dart';
 import 'package:pragmatic_todo/model/user/user.dart';
 import 'package:flutter_test/flutter_test.dart';
-import '../fakes/fake_shared_preferences_helper.dart';
+import '../helpers/fake_shared_preferences_helper.dart';
 
 void main() {
   final _goodFakePrefsHelper = FakeSharedPreferencesHelper(isValid: true);
