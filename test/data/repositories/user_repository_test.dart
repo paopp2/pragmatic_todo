@@ -113,10 +113,10 @@ void main() {
         expect(
           await userRepository.getAllUsers(),
           isA<List<User>>()
-              .having((l) => l[0].username, "username", contains("userA"))
-              .having((l) => l[0].password, "password", contains("passA"))
-              .having((l) => l[1].username, "username", contains("userB"))
-              .having((l) => l[1].password, "password", contains("passB")),
+              .having((l) => l[0].username, "1st username", contains("userA"))
+              .having((l) => l[0].password, "1st password", contains("passA"))
+              .having((l) => l[1].username, "2nd username", contains("userB"))
+              .having((l) => l[1].password, "2nd password", contains("passB")),
         );
       });
     });
