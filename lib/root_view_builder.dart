@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pragmatic_todo/data/data_providers/current_user_provider.dart';
+import 'package:pragmatic_todo/data/core_providers/current_user_provider.dart';
 
 class RootViewBuilder extends HookConsumerWidget {
   const RootViewBuilder({

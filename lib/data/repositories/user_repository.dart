@@ -1,7 +1,12 @@
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pragmatic_todo/data/helpers/shared_preferences_helper.dart';
 import 'package:pragmatic_todo/model/user/user.dart';
 
 const String keyUserList = "USER_LIST_KEY";
+
+final userRepositoryProvider = Provider.autoDispose<UserRepository>(
+  (ref) => UserRepository(SharedPreferencesHelper.instance),
+);
 
 class UserRepository {
   UserRepository(this.sharedPrefHelper);

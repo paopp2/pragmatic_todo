@@ -1,9 +1,12 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pragmatic_todo/data/data_providers/current_user_provider.dart';
+import 'package:pragmatic_todo/data/core_providers/current_user_provider.dart';
 import 'package:pragmatic_todo/data/helpers/shared_preferences_helper.dart';
 import 'package:pragmatic_todo/model/user/user.dart';
 
 const keyCurrentUser = "CURRENT_USER_KEY";
+
+final authServiceProvider =
+    Provider.autoDispose<AuthService>((ref) => AuthService(ref.read));
 
 class AuthService {
   AuthService(this.read);

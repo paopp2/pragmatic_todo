@@ -1,7 +1,18 @@
-import 'package:pragmatic_todo/data/data_providers/current_user_provider.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pragmatic_todo/data/core_providers/current_user_provider.dart';
 import 'package:pragmatic_todo/data/repositories/user_repository.dart';
 import 'package:pragmatic_todo/model/todo/todo.dart';
 import 'package:pragmatic_todo/model/user/user.dart';
+
+final todoRepositoryProvider = Provider.autoDispose<TodoRepository>(
+  (ref) {
+    return TodoRepository(
+      currentUser: ref.watch(currentUserProvider),
+      currentUserNotifier: ref.watch(currentUserProvider.notifier),
+      userRepository: ref.watch(userRepositoryProvider),
+    );
+  },
+);
 
 class TodoRepository {
   TodoRepository({
