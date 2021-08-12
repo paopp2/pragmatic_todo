@@ -27,8 +27,12 @@ const List<Map<String, dynamic>> badTestJsonData = [
   }
 ];
 
-Map<String, Object> goodSharedPrefsData = {
+Map<String, Object> goodPrefsJsonList = {
   "users": jsonEncode(goodTestJsonUserList),
+};
+
+Map<String, Object> goodPrefsRawString = {
+  "goodstring": "Good String",
 };
 
 Map<String, Object> badSharedPrefsData = {
