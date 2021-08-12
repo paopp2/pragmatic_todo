@@ -1,6 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pragmatic_todo/data/helpers/shared_preferences_helper.dart';
 
+import 'fake_shared_preferences_data.dart';
+
 class FakeSharedPreferencesHelper implements SharedPreferencesHelper {
   FakeSharedPreferencesHelper({required this.isValid});
   final bool isValid;
@@ -8,7 +10,7 @@ class FakeSharedPreferencesHelper implements SharedPreferencesHelper {
   @override
   Future<List<Map<String, dynamic>>> getJsonList(String key) async {
     return await _delay().then((value) {
-      return (isValid) ? goodTestJsonUserList : badTestUserJsonList;
+      return (isValid) ? goodTestJsonUserList : badTestJsonData;
     });
   }
 
@@ -33,30 +35,3 @@ class FakeSharedPreferencesHelper implements SharedPreferencesHelper {
   Future<void> _delay() async =>
       await Future.delayed(const Duration(microseconds: 5));
 }
-
-const List<Map<String, dynamic>> goodTestJsonUserList = [
-  {
-    "username": "userA",
-    "password": "passA",
-    "todos": [
-      {"title": "titleAA", "content": "contentAA", "isDone": true},
-      {"title": "titleAB", "content": "contentAB", "isDone": true}
-    ]
-  },
-  {
-    "username": "userB",
-    "password": "passB",
-    "todos": [
-      {"title": "titleBA", "content": "contentBA", "isDone": false},
-      {"title": "titleBB", "content": "contentBB", "isDone": false}
-    ]
-  },
-];
-
-const List<Map<String, dynamic>> badTestUserJsonList = [
-  {
-    "Data": "That",
-    "Can't": "Be Parsed",
-    "Okay?": true,
-  }
-];
