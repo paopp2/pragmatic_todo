@@ -8,35 +8,7 @@ class FakeSharedPreferencesHelper implements SharedPreferencesHelper {
   @override
   Future<List<Map<String, dynamic>>> getJsonList(String key) async {
     return await _delay().then((value) {
-      if (isValid) {
-        return [
-          {
-            "username": "paolo",
-            "password": "paolo",
-            "todos": [
-              {"title": "Trial 1", "content": "Content 1", "isDone": true},
-              {"title": "Trial 2", "content": "Content 2", "isDone": true}
-            ]
-          },
-          {
-            "username": "apollo",
-            "password": "apollo",
-            "todos": [
-              {"title": "Apollo 1", "content": "Content A", "isDone": true},
-              {"title": "Apollo 2", "content": "Content B", "isDone": true}
-            ]
-          },
-          {"username": "nika", "password": "nika", "todos": []}
-        ];
-      } else {
-        return [
-          {
-            "Data": "That",
-            "Can't": "Be Parsed",
-            "Okay?": true,
-          }
-        ];
-      }
+      return (isValid) ? goodTestJsonUserList : badTestUserJsonList;
     });
   }
 
@@ -61,3 +33,30 @@ class FakeSharedPreferencesHelper implements SharedPreferencesHelper {
   Future<void> _delay() async =>
       await Future.delayed(const Duration(microseconds: 5));
 }
+
+const List<Map<String, dynamic>> goodTestJsonUserList = [
+  {
+    "username": "userA",
+    "password": "passA",
+    "todos": [
+      {"title": "titleAA", "content": "contentAA", "isDone": true},
+      {"title": "titleAB", "content": "contentAB", "isDone": true}
+    ]
+  },
+  {
+    "username": "userB",
+    "password": "passB",
+    "todos": [
+      {"title": "titleBA", "content": "contentBA", "isDone": false},
+      {"title": "titleBB", "content": "contentBB", "isDone": false}
+    ]
+  },
+];
+
+const List<Map<String, dynamic>> badTestUserJsonList = [
+  {
+    "Data": "That",
+    "Can't": "Be Parsed",
+    "Okay?": true,
+  }
+];
