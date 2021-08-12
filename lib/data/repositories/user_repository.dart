@@ -52,7 +52,11 @@ class UserRepository {
     final jsonList = await sharedPrefHelper.getJsonList(_keyUserList);
     final List<User> userList = [];
     for (final json in jsonList) {
-      userList.add(User.fromJson(json));
+      try {
+        userList.add(User.fromJson(json));
+      } catch (e) {
+        continue;
+      }
     }
     return userList;
   }
