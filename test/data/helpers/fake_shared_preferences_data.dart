@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 const List<Map<String, dynamic>> goodTestJsonUserList = [
   {
     "username": "userA",
@@ -24,3 +26,11 @@ const List<Map<String, dynamic>> badTestJsonData = [
     "Okay?": true,
   }
 ];
+
+Map<String, Object> goodSharedPrefsData = {
+  "users": jsonEncode(goodTestJsonUserList),
+};
+
+Map<String, Object> badSharedPrefsData = {
+  "bad": jsonEncode(badTestJsonData),
+};
