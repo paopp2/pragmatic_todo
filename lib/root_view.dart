@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pragmatic_todo/data/core_providers/current_user_provider.dart';
 
-class RootViewBuilder extends HookConsumerWidget {
-  const RootViewBuilder({
+class RootView extends HookConsumerWidget {
+  const RootView({
     Key? key,
     required this.loggedOutBuilder,
     required this.loggedInBuilder,

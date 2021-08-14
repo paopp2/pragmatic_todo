@@ -6,7 +6,7 @@ import 'package:pragmatic_todo/data/helpers/shared_preferences_helper.dart';
 import 'package:pragmatic_todo/data/repositories/user_repository.dart';
 import 'package:pragmatic_todo/data/services/auth_service.dart';
 import 'package:pragmatic_todo/model/user/user.dart';
-import 'package:pragmatic_todo/root_view_builder.dart';
+import 'package:pragmatic_todo/root_view.dart';
 import 'package:pragmatic_todo/ui/auth/login_view.dart';
 import 'package:pragmatic_todo/ui/home/home_view.dart';
 
@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
       ),
       navigatorKey: _appRouter.navigationKey,
       routes: _appRouter.getRoutes(),
-      home: RootViewBuilder(
+      home: RootView(
         loggedInBuilder: (_) => const HomeView(),
         loggedOutBuilder: (_) => const LoginView(),
       ),
