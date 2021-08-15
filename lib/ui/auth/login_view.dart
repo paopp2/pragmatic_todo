@@ -3,6 +3,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pragmatic_todo/logic/auth/login_view_model.dart';
 
+import 'components/auth_text_field.dart';
+
 class LoginView extends HookConsumerWidget {
   const LoginView({Key? key}) : super(key: key);
 
@@ -26,22 +28,16 @@ class LoginView extends HookConsumerWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextFormField(
-                      controller: model.tecUsername,
+                    AuthTextField(
+                      tec: model.tecUsername,
                       validator: model.loginUsernameValidator,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Username',
-                      ),
+                      hint: "Username",
+                      obscure: true,
                     ),
                     const SizedBox(height: 15),
-                    TextFormField(
+                    AuthTextField(
                       validator: model.loginPasswordValidator,
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Password',
-                      ),
+                      hint: "Password",
                     ),
                     const SizedBox(height: 15),
                     ElevatedButton(

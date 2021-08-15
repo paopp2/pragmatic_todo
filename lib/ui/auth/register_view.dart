@@ -3,6 +3,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pragmatic_todo/logic/auth/register_view_model.dart';
 
+import 'components/auth_text_field.dart';
+
 class RegisterView extends HookConsumerWidget {
   const RegisterView({Key? key}) : super(key: key);
 
@@ -26,33 +28,24 @@ class RegisterView extends HookConsumerWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextFormField(
-                      controller: model.tecUsername,
+                    AuthTextField(
+                      tec: model.tecUsername,
                       validator: model.registerUsernameValidator,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Username',
-                      ),
+                      hint: 'Username',
                     ),
                     const SizedBox(height: 15),
-                    TextFormField(
-                      controller: model.tecPassword,
+                    AuthTextField(
+                      tec: model.tecPassword,
                       validator: model.registerPasswordValidator,
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Password',
-                      ),
+                      hint: "Password",
+                      obscure: true,
                     ),
                     const SizedBox(height: 15),
-                    TextFormField(
-                      controller: model.tecConfirmPass,
+                    AuthTextField(
+                      tec: model.tecConfirmPass,
                       validator: model.registerPasswordValidator,
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Confirm password',
-                      ),
+                      hint: "Confirm password",
+                      obscure: true,
                     ),
                     const SizedBox(height: 15),
                     ElevatedButton(
